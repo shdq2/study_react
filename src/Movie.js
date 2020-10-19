@@ -2,35 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css'
 const getGenres = (list)=>{
-    var genre = "";
+    var idx = 0;
     const li = list.map(genre => {
+        idx++;
         return (
-            <li>
+            <li key={idx}>
                 {genre}
             </li>
         )
     })
     return li;
 }
-const Movie = ({id,year,title,summary,poster,genres})=>{
+const Movie = ({id,year,title,summary,poster,genres,click,selection,back})=>{
     return (
-        <div className="movie">
-            <img src={poster} alt={title} title={title}/>
-            <div className="movie_data">
-                <div className="movie_title">
-                    {title}
+        <div className={`movie ${selection === id ? 'active':''}`} onClick={()=>click(id)}>
+            <div>
+                <img src={poster} alt={title} title={title}/>
+                <div className="movie_data">
+                    <div className="movie_title">
+                        {title}
+                    </div>
+                    <div className="movie_yaer">
+                        {year}
+                    </div>
+                    <ul className="movie_genres">
+                        {getGenres(genres)}    
+                    </ul>   
+                    <div className="movie_summary">
+                        {summary.length > 200 ? summary.slice(0,200)+"..." : summary}
+                    </div>
+                    
                 </div>
-                <div className="movie_yaer">
-                    {year}
-                </div>
-                <ul className="movie_genres">
-                    {getGenres(genres)}    
-                </ul>   
-                <div className="movie_summary">
-                    {summary.length > 200 ? summary.slice(0,200)+"..." : summary}
-                </div>
-                
-            </div> 
+                <input type="button" value="back" onClick={back} className={`back ${selection === id ? 'active':''}`}/>
+            </div>
+            
         </div>
     )
 }

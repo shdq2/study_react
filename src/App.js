@@ -5,7 +5,9 @@ import './App.css'
 class App extends React.Component {
   state = {
     isLoading : true,
-    movies : []
+    movies : [],
+    selection:0,
+    isSelection:false
   }
 
   getMovieList = async () =>{
@@ -19,9 +21,20 @@ class App extends React.Component {
   componentDidMount(){
     this.getMovieList();
   }
-  render(){
-    const {isLoading,movies} = this.state;
 
+  handleClick = (id)=>{
+    
+    if(id != this.state.selection){
+      this.setState({selection:id});  
+    }
+    
+  }
+  handleBackBtn = ()=>{
+    this.setState({selection:-1});
+  }
+  render(){
+    const {isLoading,movies,selection} = this.state;
+    const {handleClick,handleBackBtn} = this;
     const movieList = movies.map(current => {
         return (<Movie 
           id={current.id} 
@@ -31,7 +44,10 @@ class App extends React.Component {
           poster={current.medium_cover_image} 
           key={current.id}
           rating={current.rating}
-          genres={current.genres}/>)
+          genres={current.genres}
+          click = {handleClick}
+          selection = {selection}
+          back = {handleBackBtn}/>)
       })
     
     return (

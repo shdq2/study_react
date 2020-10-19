@@ -1,3 +1,6 @@
+.movies{
+    text-align: center;
+}
 .movies .movie {
     background-color: white;
     margin-bottom: 70px;
@@ -8,15 +11,18 @@
     box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
       0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
     width:100%;
-    max-width:640px;
+    max-width:600px;
     height:250px;
     vertical-align: top;
     margin:50px 25px 0 0;
     display:inline-block;
+    text-align:left;
+    position:relative;
+    z-index:0;
   }
   .movie .movie_data{
       display:inline-block;
-      max-width:400px;
+      max-width:380px;
       width:100%;
       vertical-align: top;
   }
@@ -63,4 +69,38 @@
   .movie .movie_year {
     margin-right: 10px;
     font-size: 14px;
+  }
+
+  .movies .movie.active{
+      position:fixed;
+      z-index:1;
+      width:90%;
+      height:90%;
+      max-width:100%;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      margin:0;
+  }
+  .movies .movie:hover:not(.active){
+    animation:pop 1s infinite;
+  }
+
+  .back{
+      display:none;
+  }
+
+  .back.active{
+      display:block;
+  }
+  @keyframes pop{
+      0%{
+        top:0px;
+      }
+      50%{
+        top:-20px;
+      }
+      100%{
+        top:0px;
+      }
   }
